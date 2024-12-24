@@ -20,6 +20,7 @@ type TicketFormData = z.infer<typeof ticketSchema>
 const TicketForm = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -35,6 +36,7 @@ const TicketForm = () => {
             await axios.post("/api/tickets", values);
             router.push("/tickets");
             router.refresh();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch(error) {
             setError("Failed to create ticket");
         } finally {

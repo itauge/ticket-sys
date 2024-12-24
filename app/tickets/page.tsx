@@ -1,6 +1,6 @@
 import prisma from "@/prisma/db";
 import DataTable from "./DataTable";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 
