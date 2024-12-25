@@ -2,6 +2,7 @@ import TicketPriority from "@/components/TicketPriority";
 import TicketStatusBadge from "@/components/TicketStatusBadge";
 import { Table, TableRow, TableHeader, TableHead, TableBody, TableCell   } from "@/components/ui/table";
 import { Ticket } from "@prisma/client";
+import Link from "next/link";
 
 interface Props {
   tickets: Ticket[];
@@ -33,7 +34,7 @@ const DataTable = ({ tickets }: Props) => {
                 <TableBody>
                     {tickets ? tickets.map((ticket) => (
                         <TableRow key={ticket.id} data-href ={`/tickets/${ticket.id}`}>
-                            <TableCell>{ticket.title}</TableCell>
+                            <TableCell><Link href={`/tickets/${ticket.id}`}>{ticket.title}</Link></TableCell>
                             <TableCell>{ticket.description}</TableCell>
                             <TableCell>
                                 <div className="flex justify-center">
