@@ -4,21 +4,25 @@ import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Pagination from "@/components/Pagination";
 import StatusFilter from "@/components/StatusFilter";
-import { Status } from "@prisma/client";
+import { Status, Ticket } from "@prisma/client";
 
 //searchParams is actually a promise that need awaited
-interface Props {
+export interface SearchParams {
   searchParams: Promise<{
     status: Status;
     page: string;
+    orderby: keyof Ticket;
+    sortDir?: 'asc' | 'desc';
   }>
 }
 
-const Tickets = async ({ searchParams }: Props) => {
+const Tickets = async ({ searchParams }: SearchParams) => {
   const pageSize = 10;
   const params = await searchParams;
   
   const page = params.page ? parseInt(params.page) : 1;
+  const orderBy = params.orderby || 'createdAt';
+  const sortDir = params.sortDir || 'asc';
   
   const statuses = Object.values(Status);
   const status = statuses.includes(params.status) ? params.status : undefined;
@@ -39,6 +43,9 @@ const Tickets = async ({ searchParams }: Props) => {
     where,
     take: pageSize,
     skip: (page - 1) * pageSize,
+    orderBy: {
+      [orderBy]: sortDir
+    }
   });
 
   return (
@@ -49,7 +56,7 @@ const Tickets = async ({ searchParams }: Props) => {
         </Link> 
         <StatusFilter />
       </div>
-      <DataTable tickets={tickets} />
+      <DataTable tickets={tickets} searchParams={searchParams} />
       <Pagination itemCount={ticketCount} pageSize={pageSize} currentPage={page} />
     </div>
   );
