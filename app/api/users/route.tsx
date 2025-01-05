@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 
 
 export async function POST(req: NextRequest) {
+    try {
 
     const body = await req.json();
     const validation = usersSchema.safeParse(body);
@@ -31,5 +32,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(newUser, { status: 201 });
 
+} catch (error) {
+    console.error(error);
+    return NextResponse.error({ message: "Failed to create user." }, { status: 500 });
+}
 
 }
