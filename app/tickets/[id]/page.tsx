@@ -7,8 +7,10 @@ interface Props {
 
 const ViewTicket = async ({ params }: Props) => {
 
+    const { id } = await params;
+
     const ticket = await prisma.ticket.findUnique({
-        where: { id: parseInt(params.id) }
+        where: { id: Number(id) }
     })
 
     const users = await prisma.user.findMany();

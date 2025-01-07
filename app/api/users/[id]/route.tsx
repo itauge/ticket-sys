@@ -11,13 +11,14 @@ interface Props {
 export async function PATCH(req: NextRequest, { params }: Props) {
     const body = await req.json();
     const validation = usersSchema.safeParse(body);
+    const { id } = await params;
 
     if (!validation.success) {
         return NextResponse.json(validation.error.format(), { status: 400 });
     }
 
     const user = await prisma.user.findUnique({
-        where: { id: parseInt(params.id) }
+        where: { id: Number(id) }
     });
 
     if (!user) {
@@ -42,7 +43,7 @@ export async function PATCH(req: NextRequest, { params }: Props) {
     }
 
     const updatedUser = await prisma.user.update({
-        where: { id: parseInt(params.id) },
+        where: { id: Number(id) },
         data: {...body}
     });
 

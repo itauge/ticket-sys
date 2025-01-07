@@ -8,9 +8,10 @@ interface Props {
 
 const UserPage = async ({ params }: Props) => {
 
+    const { id } = await params;
 
     const user = await prisma?.user.findUnique({
-        where: { id: parseInt(params.id) }
+        where: { id: Number(id) }
     });
 
     if(!user) {
