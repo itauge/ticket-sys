@@ -83,6 +83,22 @@ const UserForm = ({ user }: Props) => {
                         </FormItem>
                     )}
                     />
+                    {user && (
+                        <FormField 
+                            control={form.control} 
+                            name="email" 
+                            defaultValue={user?user.email:""}
+                            render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Enter email..." {...field} />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    )}
+
                     <div className= "flex w-full space-x-4">
                         <FormField 
                             control={form.control} 
