@@ -11,7 +11,7 @@ const MainNav = async () => {
 
   return (
     <div className="flex justify-between">
-        <MainNavLink />
+        <MainNavLink role={session?.user.role}/>
         <div className="flex items-center gap-2">
             {session ? <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> : <Link href="/api/auth/signin">Login</Link>}
             <ToggleMode />
