@@ -25,7 +25,6 @@ interface Props {
 const TicketForm = ({ ticket }: Props) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -131,6 +130,7 @@ const TicketForm = ({ ticket }: Props) => {
                     </Button>
                 </form>
             </Form>
+            {error && <p className="text-red-500">{error}</p>}
         </div>
     )
 }
