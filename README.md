@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and integrated with [Prisma](https://www.prisma.io) for database operations.
+
+**Important:** Before starting, ensure you have created the `NEXTAUTH_SECRET` environment variable in your `.env.local` file and set the `DATABASE_URL` in your `.env` file.
 
 ## Getting Started
 
-First, run the development server:
+First, install the project dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Next, run the Prisma migration to set up the database schema:
+
+```bash
+npx prisma migrate dev
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
