@@ -7,7 +7,11 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { SearchParams } from "./page";
 
 interface Props {
-  tickets: Ticket[];
+  tickets: (Ticket & {
+    assignedToUser?: {
+      username: string;
+    } | null;
+  })[];
   searchParams: SearchParams['searchParams'];
 }
 
@@ -61,6 +65,15 @@ const DataTable = async ({ tickets, searchParams }: Props) => {
                                 )}
                             </div>
                         </TableHead>
+                        <TableHead>
+                            <div className="flex justify-center">
+                                <Link href={`/tickets?orderby=assignedToUserId&sortDir=${sortDir === 'asc' ? 'desc' : 'asc'}`}>Assigned</Link>
+                                {orderBy === 'assignedToUserId' && (sortDir === 'asc' ? 
+                                    <ArrowUp className="w-4 h-4" /> : 
+                                    <ArrowDown className="w-4 h-4" />
+                                )}
+                            </div>
+                        </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -86,6 +99,9 @@ const DataTable = async ({ tickets, searchParams }: Props) => {
                                 minute: "2-digit",
                                 hour12: true,
                             })}</TableCell>
+                            <TableCell>
+                                {ticket.assignedToUserId ? <Link href={`/users/${ticket.assignedToUserId}`}>{ticket.assignedToUser?.username}</Link> : "Unassigned"}
+                            </TableCell>
                         </TableRow>
                     )) : <TableRow><TableCell>No tickets found</TableCell></TableRow>}
                 </TableBody>

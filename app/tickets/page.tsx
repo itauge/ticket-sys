@@ -45,6 +45,13 @@ const Tickets = async ({ searchParams }: SearchParams) => {
     skip: (page - 1) * pageSize,
     orderBy: {
       [orderBy]: sortDir
+    },
+    include: {
+      assignedToUser: {
+        select: {
+          username: true
+        }
+      }
     }
   });
 
